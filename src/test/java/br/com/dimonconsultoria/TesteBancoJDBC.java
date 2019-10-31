@@ -13,17 +13,16 @@ import br.com.dimonconsultoria.model.UserPosJava;
 public class TesteBancoJDBC {
 
 	@Test
-	public void initBanco() {
+	public void testeInserir() {
 		UserPosDAO dao = new UserPosDAO();
 		UserPosJava user = new UserPosJava();
 		user.setNome("Juliano");
 		user.setEmail("jcdeadbody@bol.com.br");
-
 		dao.salvar(user);
 	}
 
 	@Test
-	public void initListar() {
+	public void testeListar() {
 		UserPosDAO dao = new UserPosDAO();
 		try {
 			List<UserPosJava> list = dao.listar();
@@ -38,7 +37,7 @@ public class TesteBancoJDBC {
 	}
 
 	@Test
-	public void initBuscar() {
+	public void testeBuscar() {
 		UserPosDAO dao = new UserPosDAO();
 		try {
 			UserPosJava list = dao.buscar(1L);
@@ -50,14 +49,12 @@ public class TesteBancoJDBC {
 	}
 
 	@Test
-	public void initAtualizar() {
+	public void testeAtualizar() {
 		UserPosDAO dao = new UserPosDAO();
 		try {
 			UserPosJava objeto = dao.buscar(1L);
 			objeto.setNome("TESTE");
-
 			dao.atualizar(objeto);
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,30 +62,35 @@ public class TesteBancoJDBC {
 	}
 
 	@Test
-	public void initDeletar() {
+	public void testeDeletar() {
 		UserPosDAO dao = new UserPosDAO();
 		dao.deletar(9L);
 	}
 
 	@Test
-	public void initTelefone() {
+	public void testeSalvarTelefone() {
 		Telefone telefone = new Telefone();
 		telefone.setUsuario(10L);
 		telefone.setNumero("(48) 33486435");
 		telefone.setTipo("celular");
-
 		UserPosDAO dao = new UserPosDAO();
 		dao.salvarTelefone(telefone);
 	}
 
 	@Test
-	public void initCarregaFonesUser() {
+	public void testeCarregaFonesUser() {
 		UserPosDAO dao = new UserPosDAO();
 		List<BeanUserFone> lista =dao.listaUserFone(10L);		
 		for (BeanUserFone beanUserFone : lista) {
-			System.out.println(beanUserFone);
-			
+			System.out.println(beanUserFone);			
 		}
+	}
+	
+	@Test
+	public void testeDeleteUserFone() {
+		UserPosDAO userPosDAO=new UserPosDAO();
+		userPosDAO.deleteFonesPorUser(10L);
+		
 	}
 
 }

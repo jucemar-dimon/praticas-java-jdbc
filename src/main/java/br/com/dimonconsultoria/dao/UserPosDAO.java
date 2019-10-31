@@ -146,11 +146,15 @@ public class UserPosDAO {
 	}
 	
 	public void deleteFonesPorUser(Long id) {
-		String sqlTelefone="DELETE * FROM telefoneuser WHERE id="+id;
-		String sqlUsers="DELETE * FROM userposjava WHERE id="+id;
+		String sqlTelefone="DELETE FROM telefoneuser WHERE usuariopessoa="+id;
+		String sqlUsers="DELETE FROM userposjava WHERE id="+id;
 		try{
-			PreparedStatement preparedStatement=connection.prepareStatement(sqlUsers);
-			preparedStatement.executeUpdate();			
+			PreparedStatement preparedStatementTelefone=connection.prepareStatement(sqlTelefone);
+			preparedStatementTelefone.executeUpdate();	
+			connection.commit();
+			PreparedStatement preparedStatementUsers=connection.prepareStatement(sqlUsers);
+			preparedStatementUsers.executeUpdate();	
+			connection.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 			try {
